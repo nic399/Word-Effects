@@ -15,7 +15,7 @@ int main(int argc, const char * argv[]) {
         printf("Available Operations: \n");
         printf("1. Uppercase: Convert your entire string to all uppercase \n");
         printf("2. Lowercase: Convert your entire string to lowercase \n");
-        printf("3. Numberize: Convert your entire string to an integer. \nNon-numerical inputs are invalid for this operation, i.e. 'hello', 'ten', 'pi' are all invalid, but '10', '1984.35', '123456789', '-19294' will work, with any decimal value getting truncated\n");
+        printf("3. Numberize: Convert your entire string to an integer. \nInput must be a numerical number (i.e. '10' not 'ten'), other inputs are invalid for this operation, i.e. 'hello', 'ten', 'pi' are all invalid, but '10', '1984.35', '3.14', '-19294' will work\n");
         printf("4. Canadaidize: Adds \", eh?\" to the end of your string \n");
         printf("5. Respond: Answers the input string with different responses depending of the end punctuation \n");
         printf("6. De-Space-It: Replaces all of the spaces with a dash ('-') \n");
@@ -60,25 +60,27 @@ int main(int argc, const char * argv[]) {
         
         // modified string to display to the user after the operation is complete
         NSString* outputString;
-        
+        NSString* trimmedString;
+        trimmedString = [inputString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         // perform the operation that the user selected on their inputted string
         switch (operation) {
+            
             // to uppercase
             case 1:
-            outputString = [inputString uppercaseString];
+            outputString = [trimmedString uppercaseString];
             break;
             
             // to lowercase
             case 2 :
-            outputString = [inputString lowercaseString];
+            outputString = [trimmedString lowercaseString];
             break;
             
             // to a number
             case 3:
-            // if the string is in a valid decimal format, then [inputString integerValue] will
+            // if the string is in a valid decimal format, then [inputString doubleValue] will
             // return a non-zero value OR if it returns 0, check to see if the original string
             // was just '0', with is a valid number
-            if ([inputString isEqualToString:@"0"] || [inputString integerValue] != 0) {
+            if ([[trimmedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@"0"] || [inputString doubleValue] != 0.000) {
                 outputString = inputString;
             }
             else{
@@ -88,24 +90,35 @@ int main(int argc, const char * argv[]) {
             
             // Canadianize
             case 4:
-            outputString = [inputString stringByAppendingString:@", eh?"];
+            outputString = [trimmedString stringByAppendingString:@", eh?"];
             break;
             
-            // Resopnd
+            // Respond
             case 5:
-            
+            if ([trimmedString hasSuffix:@"?"]) {
+                outputString = @"I don't know";
+            }
+            else if ([trimmedString hasSuffix:@"!"]) {
+                outputString = @"Whoa, calm down!";
+            }
+            else {
+                outputString = @"OK";
+            }
             break;
             
             // replace spaces with dashes
             case 6:
-            
+            outputString = [trimmedString stringByReplacingOccurrencesOfString:@" " withString:@"-"];
             break;
             
             default:
             break;
+            
+            
         }
-        
+        NSLog(@"%@", outputString);
     }
+    
     return 0;
 }
 
