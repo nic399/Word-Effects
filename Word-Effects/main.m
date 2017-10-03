@@ -21,11 +21,20 @@ int main(int argc, const char * argv[]) {
         printf(" \n");
         printf(" \n");
         
-        printf("Choose an operation from one of the options above (1-6): \n");
         
         
         // 255 unit long array of character
         char inputChars[255];
+        NSString *operationString;
+        NSInteger operation;
+        do {
+            printf("Choose an operation from one of the options above (1-6): \n");
+            fgets(inputChars, 255, stdin);
+            operationString = [NSString stringWithUTF8String:inputChars];
+            operation = [operationString integerValue];
+            NSLog(@"Operation: %zd", operation);
+        } while (operation < 1 || operation > 6);
+        
         
         printf("Input a string: ");
         // limit input to max 255 characters
@@ -39,6 +48,7 @@ int main(int argc, const char * argv[]) {
         
         // print NSString object
         NSLog(@"Input was : %@", inputString);
+        
         
         
     }
