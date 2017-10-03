@@ -11,7 +11,17 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
-
+        printf("Available Operations: \n");
+        printf("1. Uppercase: Convert your entire string to all uppercase \n");
+        printf("2. Lowercase: Convert your entire string to lowercase \n");
+        printf("3. Numberize: Convert your entire string to an integer. \nNon-integer inputs are invalid for this operation, i.e. 'hello', 'ten', '3.14', 'pi' are all invalid, but '10', '1984', '123456789' will work\n");
+        printf("4. Canadaidize: Adds \", eh?\" to the end of your string \n");
+        printf("5. Respond: Answers the input string with different responses depending of the end punctuation \n");
+        printf("6. De-Space-It: Replaces all of the spaces with a dash ('-') \n");
+        printf(" \n");
+        printf(" \n");
+        
+        printf("Choose an operation from one of the options above (1-6): \n");
         
         
         // 255 unit long array of character
